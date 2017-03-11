@@ -57,11 +57,11 @@ def get_taxicode_estimate(start_latitude=None, start_longitude=None, end_latitud
 
     for item, value in r.json()['quotes'].items():
         company_name = value['company_name']
-
         for item in value['vehicles']:
             car_name = '{}-{}'.format(company_name, item['name'])
-            result[car_name] = {"high_price": item['price'],
-                                "low_price": item['price']}
+            if 'price' in item:
+                result[car_name] = {"high_price": item['price'],
+                                    "low_price": item['price']}
 
     return result
 
@@ -79,14 +79,15 @@ def get_hailo_estimate(start_latitude=None, start_longitude=None, end_latitude=N
 def parse_uber(start_latitude, start_longitude, end_latitude, end_longitude):
     uber = {}
     parsed_uber_json = json.loads(get_uber_estimate(start_latitude, start_longitude, end_latitude, end_longitude))
-    for uber_type in parsed_uber_json['prices']:
-        high_price = uber_type['high_estimate']
-        low_price = uber_type['low_estimate']
-        uber_type = uber_type['localized_display_name']
-        if high_price and low_price:
-            uber[uber_type] = {}
-            uber[uber_type]['high_price'] = high_price
-            uber[uber_type]['low_price'] = low_price
+    if 'prices' in parsed_uber_json:
+        for uber_type in parsed_uber_json['prices']:
+            high_price = uber_type['high_estimate']
+            low_price = uber_type['low_estimate']
+            uber_type = uber_type['localized_display_name']
+            if high_price and low_price:
+                uber[uber_type] = {}
+                uber[uber_type]['high_price'] = high_price
+                uber[uber_type]['low_price'] = low_price
     return uber
 
 
