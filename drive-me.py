@@ -6,22 +6,38 @@ import json
 from flask import jsonify
 import requests
 import operator
+from flask import make_response
 
 app = Flask(__name__)
 CORS(app)
 
-@app.route('/')
-def index():
-    start_latitude = '51.5254506'
-    start_longitude = '-0.1292581'
-    end_latitude = '51.5114864'
-    end_longitude = '-0.1181857'
-    taxicode = get_taxicode_estimate(start_latitude, start_longitude, end_latitude, end_longitude)
-    uber = parse_uber(start_latitude, start_longitude, end_latitude, end_longitude)
+
+@app.route(
+    '/estimate/startLat=<string:start_lat>&startLon=<string:start_lon>&endLat=<string:end_lat>&endLon=<string:end_lon>')
+def estimate(start_lat, start_lon, end_lat, end_lon):
+    taxicode = get_taxicode_estimate(start_lat, start_lon, end_lat, end_lon)
+    uber = parse_uber(start_lat, start_lon, end_lat, end_lon)
     result = taxicode.copy()
     result.update(uber)
     sorted_result = sorted(result.items(), key=operator.itemgetter(1))
     return jsonify(sorted_result)
+
+@app.errorhandler(404)
+def not_found(error):
+    return make_response(jsonify({'error': 'Not found'}), 404)
+
+#@app.route('/')
+#def index():
+#    start_latitude = '51.5254506'
+#    start_longitude = '-0.1292581'
+#    end_latitude = '51.5114864'
+#    end_longitude = '-0.1181857'
+#    taxicode = get_taxicode_estimate(start_latitude, start_longitude, end_latitude, end_longitude)
+#    uber = parse_uber(start_latitude, start_longitude, end_latitude, end_longitude)
+#    result = taxicode.copy()
+#    result.update(uber)
+#    sorted_result = sorted(result.items(), key=operator.itemgetter(1))
+#    return jsonify(sorted_result)
 
 
 def get_uber_estimate(start_latitude=None, start_longitude=None, end_latitude=None, end_longitude=None):
@@ -33,7 +49,6 @@ def get_uber_estimate(start_latitude=None, start_longitude=None, end_latitude=No
 
 
 def get_taxicode_estimate(start_latitude=None, start_longitude=None, end_latitude=None, end_longitude=None):
-
     url = 'https://api.taxicode.com/booking/quote/?pickup={},{}&destination={},{}&date=13-03-2017'.format(
         start_latitude, start_longitude, end_latitude, end_longitude)
     r = requests.get(url)
@@ -59,6 +74,7 @@ def get_hailo_estimate(start_latitude=None, start_longitude=None, end_latitude=N
                'Authorization': 'token Z7r9oJePCMy2WkCGoI3PtNOWCGe9L2LroLF6wxUI6EfXg+knJdB4ZMp2BLpTjDroFr6Tp52FVBUzuMlgRnC/A/2hlL017T3lNnvcPTNvMlVV4Uxs0IhEyC2h0OKg+9QDN58DXgbO3y1itg4KWv0pwvbFX6ZQfvasHsPTeLpEAERkB4xS2fZZosYo137jWSangjdPndI+GzMaxtc4AFvueA=='}
     r = requests.get(url, headers=headers)
     return r.text
+
 
 def parse_uber(start_latitude, start_longitude, end_latitude, end_longitude):
     uber = {}
