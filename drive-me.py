@@ -1,14 +1,14 @@
 from flask import Flask, render_template
+from flask_cors import CORS, cross_origin
 # from uber_rides.session import Session
 # from uber_rides.client import UberRidesClient
 import json
-
 from flask import jsonify
 import requests
 import operator
 
 app = Flask(__name__)
-
+CORS(app)
 
 @app.route('/')
 def index():
