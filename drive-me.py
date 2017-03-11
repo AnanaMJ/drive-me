@@ -14,7 +14,7 @@ def index():
     start_longitude = '-0.1292581'
     end_latitude = '51.5114864'
     end_longitude = '-0.1181857'
-    return get_taxicode_estimate(start_latitude, start_longitude, end_latitude, end_longitude)
+    return get_hailo_estimate(start_latitude, start_longitude, end_latitude, end_longitude)
 
 def get_uber_estimate(start_latitude=None, start_longitude=None, end_latitude=None, end_longitude=None):
 
@@ -29,6 +29,15 @@ def get_taxicode_estimate(start_latitude=None, start_longitude=None, end_latitud
         start_latitude, start_longitude, end_latitude, end_longitude)
     r = requests.get(url)
     return r.text
+
+def get_hailo_estimate(start_latitude=None, start_longitude=None, end_latitude=None, end_longitude=None):
+    url = 'https://api.hailoapp.com/drivers/eta?latitude={}&longitude={}&destinationCoordinate={},{}'.format(start_latitude, start_longitude, end_latitude, end_longitude)
+    headers={'Host': 'api.hailoapp.com',
+             'Accept': '*/*',
+             'Authorization': 'token Z7r9oJePCMy2WkCGoI3PtNOWCGe9L2LroLF6wxUI6EfXg+knJdB4ZMp2BLpTjDroFr6Tp52FVBUzuMlgRnC/A/2hlL017T3lNnvcPTNvMlVV4Uxs0IhEyC2h0OKg+9QDN58DXgbO3y1itg4KWv0pwvbFX6ZQfvasHsPTeLpEAERkB4xS2fZZosYo137jWSangjdPndI+GzMaxtc4AFvueA=='}
+    r=requests.get(url)
+    return r.text
+
 
 def create_session():
     session = Session(server_token= "EZx9qEWb2Uvt2_fsukQoNzgl5jvFdcXIJCAcUMEs")
