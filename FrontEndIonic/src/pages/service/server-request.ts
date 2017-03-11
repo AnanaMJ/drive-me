@@ -11,7 +11,7 @@ export class ServerRequest {
     }
 
     searchTaxi(startLatitude, startLongitude, endLatitude, endLongitude) {
-        var url = 'http://api.themoviedb.org/3/search/movie?query=&query=' + encodeURI(startLatitude) + encodeURI(startLongitude) + encodeURI(endLatitude) + encodeURI(endLongitude);
+        var url = 'http://google.com';
         var response = this.http.get(url).map(res => res.json());
         return response;
     }
