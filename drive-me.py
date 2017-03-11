@@ -7,14 +7,14 @@ import requests
 
 app = Flask(__name__)
 
-
 @app.route('/')
 def index():
     start_latitude = '51.5254506'
     start_longitude = '-0.1292581'
     end_latitude = '51.5114864'
     end_longitude = '-0.1181857'
-    return get_hailo_estimate(start_latitude, start_longitude, end_latitude, end_longitude)
+    print parse_uber(start_latitude, start_longitude, end_latitude, end_longitude)
+    return get_uber_estimate(start_latitude, start_longitude, end_latitude, end_longitude)
 
 def get_uber_estimate(start_latitude=None, start_longitude=None, end_latitude=None, end_longitude=None):
 
@@ -35,8 +35,27 @@ def get_hailo_estimate(start_latitude=None, start_longitude=None, end_latitude=N
     headers={'Host': 'api.hailoapp.com',
              'Accept': '*/*',
              'Authorization': 'token Z7r9oJePCMy2WkCGoI3PtNOWCGe9L2LroLF6wxUI6EfXg+knJdB4ZMp2BLpTjDroFr6Tp52FVBUzuMlgRnC/A/2hlL017T3lNnvcPTNvMlVV4Uxs0IhEyC2h0OKg+9QDN58DXgbO3y1itg4KWv0pwvbFX6ZQfvasHsPTeLpEAERkB4xS2fZZosYo137jWSangjdPndI+GzMaxtc4AFvueA=='}
-    r=requests.get(url)
+    r=requests.get(url, headers=headers)
     return r.text
+
+def parse_uber(start_latitude, start_longitude, end_latitude, end_longitude):
+    uber = {}
+    parsed_uber_json = json.loads(get_uber_estimate(start_latitude, start_longitude, end_latitude, end_longitude))
+    for uber_type in parsed_uber_json['prices']:
+        print uber_type
+        high_price = uber_type['high_estimate']
+        print high_price
+        low_price = uber_type['low_estimate']
+        print low_price
+        uber_type = uber_type['localized_display_name']
+        print uber_type
+        uber[uber_type] = {}
+        uber[uber_type]['high_price'] = high_price
+        print uber[uber_type]['high_price']
+        uber[uber_type]['low_price'] = low_price
+        print uber[uber_type]['low_price']
+    for key in uber.keys():
+        print key, uber[key]
 
 
 def create_session():
