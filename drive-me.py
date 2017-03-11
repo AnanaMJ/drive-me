@@ -1,14 +1,28 @@
 from flask import Flask, render_template
-from uber_rides.session import Session
-from uber_rides.client import UberRidesClient
-import _json
+#from uber_rides.session import Session
+#from uber_rides.client import UberRidesClient
+import json
+
+import requests
 
 app = Flask(__name__)
 
 
 @app.route('/')
 def index():
-    return render_template('base.html')
+    start_latitude = '51.5254506'
+    start_longitude = '-0.1292581'
+    end_latitude = '51.5114864'
+    end_longitude = '-0.1181857'
+    return get_the_estimate(start_latitude, start_longitude, end_latitude, end_longitude)
+
+def get_the_estimate(start_latitude=None, start_longitude=None, end_latitude=None, end_longitude=None):
+
+    url = 'https://api.uber.com/v1.2/estimates/price?start_latitude={}&start_longitude={}&end_latitude={}&end_longitude={}'.format(
+        start_latitude, start_longitude, end_latitude, end_longitude)
+    headers = {'Authorization': 'Token EZx9qEWb2Uvt2_fsukQoNzgl5jvFdcXIJCAcUMEs', 'Content-Type': 'application/json'}
+    r = requests.get(url, headers=headers)
+    return r.text
 
 def create_session():
     session = Session(server_token= "EZx9qEWb2Uvt2_fsukQoNzgl5jvFdcXIJCAcUMEs")
