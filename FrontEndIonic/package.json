@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "@ionic/app-scripts": "1.1.4",
+    "@types/googlemaps": "^3.26.4",
     "typescript": "2.0.9"
   },
   "cordovaPlugins": [

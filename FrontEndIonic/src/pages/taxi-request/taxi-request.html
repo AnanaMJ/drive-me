@@ -1,14 +1,19 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      MAP
     </ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="addMarker()"><ion-icon name="add"></ion-icon>Add Marker</button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content>
+  <p class="label">From</p>
+  <input id="journey_from" name="journey_from" type="text" placeholder="Enter location"[(ngModel)]="fromValue">
+  <p class="label">To</p>
+  <input id="journey_to" name="journey_to" type="text" placeholder="Enter location"[(ngModel)]="toValue">
+  <br>
+  <button ion-button round (click)="makeReq()">GET</button>
 </ion-content>
