@@ -3,11 +3,13 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/taxi-request/taxi-request';
 import { ServerRequest } from '../pages/service/server-request';
+import { TaxiInfoPage } from '../pages/taxi-info/taxi-info';
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    TaxiInfoPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -15,7 +17,8 @@ import { ServerRequest } from '../pages/service/server-request';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    TaxiInfoPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })
