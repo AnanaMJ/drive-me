@@ -17,11 +17,11 @@ def index():
     end_latitude = '51.5114864'
     end_longitude = '-0.1181857'
     taxicode = get_taxicode_estimate(start_latitude, start_longitude, end_latitude, end_longitude)
-#    sorted_result = sorted(taxicode.items(), key=operator.itemgetter(1))
     uber = parse_uber(start_latitude, start_longitude, end_latitude, end_longitude)
     result = taxicode.copy()
     result.update(uber)
-    return jsonify(result)
+    sorted_result = sorted(result.items(), key=operator.itemgetter(1))
+    return jsonify(sorted_result)
 
 
 def get_uber_estimate(start_latitude=None, start_longitude=None, end_latitude=None, end_longitude=None):
@@ -71,8 +71,6 @@ def parse_uber(start_latitude, start_longitude, end_latitude, end_longitude):
             uber[uber_type] = {}
             uber[uber_type]['high_price'] = high_price
             uber[uber_type]['low_price'] = low_price
-        uber[uber_type]['high_price'] = high_price
-        uber[uber_type]['low_price'] = low_price
     return uber
 
 
