@@ -71,8 +71,6 @@ def parse_uber(start_latitude, start_longitude, end_latitude, end_longitude):
             uber[uber_type] = {}
             uber[uber_type]['high_price'] = high_price
             uber[uber_type]['low_price'] = low_price
-        uber[uber_type]['high_price'] = high_price
-        uber[uber_type]['low_price'] = low_price
     return uber
 
 
