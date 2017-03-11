@@ -61,20 +61,13 @@ def parse_uber(start_latitude, start_longitude, end_latitude, end_longitude):
     uber = {}
     parsed_uber_json = json.loads(get_uber_estimate(start_latitude, start_longitude, end_latitude, end_longitude))
     for uber_type in parsed_uber_json['prices']:
-        print uber_type
         high_price = uber_type['high_estimate']
-        print high_price
         low_price = uber_type['low_estimate']
-        print low_price
         uber_type = uber_type['localized_display_name']
-        print uber_type
         uber[uber_type] = {}
         uber[uber_type]['high_price'] = high_price
-        print uber[uber_type]['high_price']
         uber[uber_type]['low_price'] = low_price
-        print uber[uber_type]['low_price']
-    for key in uber.keys():
-        print key, uber[key]
+    return uber
 
 
 def create_session():
