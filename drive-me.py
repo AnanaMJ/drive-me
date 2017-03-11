@@ -5,6 +5,7 @@ import json
 
 from flask import jsonify
 import requests
+import operator
 
 app = Flask(__name__)
 
@@ -15,7 +16,9 @@ def index():
     start_longitude = '-0.1292581'
     end_latitude = '51.5114864'
     end_longitude = '-0.1181857'
-    return jsonify(get_taxicode_estimate(start_latitude, start_longitude, end_latitude, end_longitude))
+    taxicode = get_taxicode_estimate(start_latitude, start_longitude, end_latitude, end_longitude)
+    sorted_result = sorted(taxicode.items(), key=operator.itemgetter(1))
+    return jsonify(sorted_result)
 
 
 def get_uber_estimate(start_latitude=None, start_longitude=None, end_latitude=None, end_longitude=None):
@@ -41,6 +44,7 @@ def get_taxicode_estimate(start_latitude=None, start_longitude=None, end_latitud
             car_name = '{}-{}'.format(company_name, item['name'])
             result[car_name] = {"high_price": item['price'],
                                 "low_price": item['price']}
+
     return result
 
 
