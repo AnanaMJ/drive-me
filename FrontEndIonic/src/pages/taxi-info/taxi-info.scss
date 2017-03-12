@@ -1,41 +1,3 @@
-page-taxi-request {
-
-    .scroll-content {
-      height: 100%
-    }
-
-    #map {
-      width: 100%;
-      height: 100%;
-    }
-  }
-
-.card-background-page {
-
-  ion-card {
-    position: relative;
-    text-align: center;
-  }
-
-  .card-title {
-    position: absolute;
-    top: 20%;
-    font-size: 5.0em;
-    width: 100%;
-    font-weight: bold;
-    color: #512C73;
-  }
-
-  .card-subtitle {
-    font-size: 1.0em;
-    position: absolute;
-    top: 46%;
-    width: 100%;
-    color: #512C73;
-  }
-
-}
-
 .label {
   font-size: 5.0em;
   color: #f00;
@@ -51,6 +13,25 @@ page-taxi-request {
   width: 100%;
   opacity: 0.5;
 
+}
+
+.home{
+  opaque: 0.5%;
+}
+
+.ion-content{
+  opaque: 0.5%;
+}
+
+.item-description{
+  text-align: center;
+  font-color: #000;
+}
+
+.ion-item{
+  background-color: #fff;
+
+  font-color: #000;
 }
 
 input[type="text"] {

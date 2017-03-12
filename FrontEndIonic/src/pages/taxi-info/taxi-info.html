@@ -1,22 +1,24 @@
 <ion-header>
   <ion-navbar>
-
     <ion-title>
       Available Companies
+      <br>From: {{companies.fromValue}}
     </ion-title>
-
   </ion-navbar>
 </ion-header>
 
+
 <ion-content class="home" padding>
-  <ion-list>
 
-    <ion-item *ngFor="let company of companies">
-      <h2><ion-icon name="car" item-left></ion-icon>{{company[0]}}</h2>
-      <p class="item-description">Price range: £{{company[1].low_price}} - £{{company[1].high_price}}</p>
-    </ion-item>
+  <ion-item *ngFor="let company of companies">
+    <button ion-button color="light">
 
-  </ion-list>
+        <h2><ion-icon name="car" item-left></ion-icon>{{company[0]}}</h2>
+        </button>
+    <br><p class="item-description">Price range: £{{company[1].low_price}} - £{{company[1].high_price}}</p>
+
+  </ion-item>
+
 </ion-content>
 
 <ion-footer>
