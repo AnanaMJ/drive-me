@@ -4,6 +4,8 @@ import { ServerRequest } from '../service/server-request';
 import {googlemaps} from 'googlemaps';
 import { Geolocation } from 'ionic-native';
 import { TaxiInfoPage } from '../taxi-info/taxi-info';
+import { Platform } from 'ionic-angular';
+
 
 
 @Component({
@@ -21,12 +23,14 @@ export class HomePage {
   companies:{};
   shouldHeight = document.body.clientHeight + 'px' ;
 
-  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, private serverRequest: ServerRequest,) {
+  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, private serverRequest: ServerRequest, private platform: Platform) {
     this.fromValue = "Current Location";
     this.toValue = "";
-    Geolocation.getCurrentPosition().then(pos => {
+    platform.ready().then(() => {
+      Geolocation.getCurrentPosition().then(pos => {
       this.startLat=pos.coords.latitude;
       this.startLong=pos.coords.longitude;
+    });
     });
     this.endLong=0;
     this.endLat=0;
