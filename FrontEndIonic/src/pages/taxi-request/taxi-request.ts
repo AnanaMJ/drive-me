@@ -22,8 +22,9 @@ export class HomePage {
   endLong:number;
   endLat:number;
   companies:{};
+  shouldHeight = document.body.clientHeight + 'px' ;
 
-  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, private serverRequest: ServerRequest) {
+  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, private serverRequest: ServerRequest, private journeyFrom:ElementRef) {
     this.fromValue = "Current Location";
     this.toValue = "";
     Geolocation.getCurrentPosition().then(pos => {
@@ -32,6 +33,7 @@ export class HomePage {
     });
     this.endLong=0;
     this.endLat=0;
+    console.log(journeyFrom);
   }
 
 
