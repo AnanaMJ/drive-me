@@ -16,7 +16,8 @@ def estimate(start_lat, start_lon, end_lat, end_lon):
     result = taxicode.copy()
     result.update(uber)
     sorted_result = sorted(result.items(), key=operator.itemgetter(1))
-    return jsonify(sorted_result)
+
+    return jsonify(sorted_result[0:5])
 
 
 @app.errorhandler(404)
@@ -42,7 +43,7 @@ def get_taxicode_estimate(start_latitude=None, start_longitude=None, end_latitud
 
 
 def get_uber_estimate(start_latitude=None, start_longitude=None, end_latitude=None, end_longitude=None):
-    url = 'https://api.uber.com/v1.2/estimates/price?start_latitude={}&start_longitude={}&end_latitude={}&end_longitude={}'.format(
+    url = 'https://sandbox-api.uber.com/v1.2/estimates/price?start_latitude={}&start_longitude={}&end_latitude={}&end_longitude={}'.format(
         start_latitude, start_longitude, end_latitude, end_longitude)
     headers = {'Authorization': 'Token EZx9qEWb2Uvt2_fsukQoNzgl5jvFdcXIJCAcUMEs', 'Content-Type': 'application/json'}
     r = requests.get(url, headers=headers)
