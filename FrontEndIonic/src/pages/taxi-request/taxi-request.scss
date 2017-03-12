@@ -1,58 +1,26 @@
-page-taxi-request {
-
-    .scroll-content {
-      height: 100%
-    }
-
-    #map {
-      width: 100%;
-      height: 100%;
-    }
-  }
-
-.card-background-page {
-
-  ion-card {
-    position: relative;
-    text-align: center;
-  }
-
-  .card-title {
-    position: absolute;
-    top: 20%;
-    font-size: 5.0em;
-    width: 100%;
-    font-weight: bold;
-    color: #512C73;
-  }
-
-  .card-subtitle {
-    font-size: 1.0em;
-    position: absolute;
-    top: 46%;
-    width: 100%;
-    color: #512C73;
-  }
-
+#title{
+  color:#f00;
+  size:3em;
+  opacity:0.5;
 }
 
-.label {
-  font-size: 5.0em;
-  color: #f00;
+#field{
+  border-radius: 10px;
+  border: none;
+  padding: 12px 20px;
 }
 
-.button{
-  align: left;
-  width: 100%;
+#label{
+  color: orange;
 }
 
-.ion-list{
-  align: center;
-  width: 100%;
-  opacity: 0.5;
-
+ion-row{
+  margin-left:auto;
+  margin-right:auto;
+  display:block;
 }
 
-input[type="text"] {
-  width: 500px;
+input[type=text] {
+    background-color: #000;
+    color: white;
 }

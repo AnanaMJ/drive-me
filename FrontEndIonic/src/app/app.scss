@@ -1,5 +1,11 @@
 // http://ionicframework.com/docs/v2/theming/
 
+ion-content {
+  background-image: url('../assets/img/img.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  -webkit-background-image: url('../assets/img/img.png');
+}
 
 // App Global Sass
 // --------------------------------------------------

@@ -1,23 +1,25 @@
-<ion-content class = "card-background-page" scroll = "false">
-  <ion-card item = left>
+<ion-content>
+  <ion-grid>
 
-    <img src = "img/img.png"/>
-    <div class="card-title">Drive Me</div>
-    <div class="card-subtitle">
+  <ion-row id="title" class="col-md-12 col-xs-12 col-centered" >
+    <h2>Drive Me</h2>
+  </ion-row>
 
-      <div class="ion-list">
+  <ion-row id="label">
         <p class="label">From</p>
-        <input id="journey_from" name="journey_from" type="text" placeholder="Current Location"[(ngModel)]="fromValue">
-
+  </ion-row>
+  <ion-row id="field">
+        <input id="journey_from" #journey_from name="journey_from" type="text" onfocus="clear()" placeholder="Enter location"[(ngModel)]="fromValue">
+  </ion-row>
+  <ion-row id="label">
         <p class="label">To</p>
+  </ion-row>
+  <ion-row id="field">
         <input id="journey_to" name="journey_to" type="text" placeholder="Enter location"[(ngModel)]="toValue">
-      </div>
+  </ion-row>
+  <ion-row>
+    <button ion-button color="primary" block round (click)="makeReq()">Get Fares</button>
+  </ion-row>
 
-      <br>
-      <div padding>
-        <button ion-button color="primary" block round (click)="makeReq()">Get Fares</button>
-      </div>
-    </div>
-
-  </ion-card>
+</ion-grid>
 </ion-content>
