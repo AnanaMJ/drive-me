@@ -25,7 +25,7 @@ export class TaxiInfoPage {
 
     showPrompt(){
       let prompt = this.alertCtrl.create({
-        title: 'Order a taxi',
+        title: 'Order Taxi',
         message: 'Enter your username and password',
         inputs: [
         {
