@@ -11,7 +11,7 @@
 <ion-content class="home" padding>
 
   <ion-item *ngFor="let company of companies">
-    <button ion-button color="light">
+    <button ion-button color="light" (click)='showPrompt();'>
 
         <h2><ion-icon name="car" item-left></ion-icon>{{company[0]}}</h2>
         </button>
