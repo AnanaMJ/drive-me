@@ -25,11 +25,12 @@ export class TaxiInfoPage {
 
     showPrompt(){
       let prompt = this.alertCtrl.create({
-        title: 'Login',
+        title: 'Order a taxi',
         message: 'Enter your username and password',
         inputs: [
         {
           name: 'username',
+          type: 'email',
           placeholder: 'Username',
         },
         {
@@ -46,15 +47,31 @@ export class TaxiInfoPage {
             }
           },
           {
-            text: 'Save',
+            text: 'Order',
             handler: data => {
               console.log("SAVE");
-              // change page
+              this.showAlert();
             }
           }
         ]
       });
       prompt.present();
     }
+
+    showAlert() {
+    let alert = this.alertCtrl.create({
+      title: 'Taxi has been booked!',
+      subTitle: 'Your taxi has been ordered! Stay tuned for more information',
+      buttons: [
+      {
+        text: 'OK',
+        handler: data => {
+          this.navCtrl.pop();
+        }
+      }
+      ]
+    });
+    alert.present();
+  }
 
 }
