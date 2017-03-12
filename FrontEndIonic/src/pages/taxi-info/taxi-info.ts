@@ -25,11 +25,12 @@ export class TaxiInfoPage {
 
     showPrompt(){
       let prompt = this.alertCtrl.create({
-        title: 'Login',
+        title: 'Order Taxi',
         message: 'Enter your username and password',
         inputs: [
         {
           name: 'username',
+          type: 'email',
           placeholder: 'Username',
         },
         {
@@ -46,9 +47,9 @@ export class TaxiInfoPage {
             }
           },
           {
-            text: 'Save',
+            text: 'Order',
             handler: data => {
-              console.log("SAVE");
+              console.log("ORDER");
               // change page
             }
           }
