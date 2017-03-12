@@ -34,14 +34,15 @@ export class HomePage {
 
   presentLoadingDefault() {
   let loading = this.loadingCtrl.create({
-    content: 'Please wait...'
+    content: 'Please wait...',
+    dismissOnPageChange: true,
   });
 
   loading.present();
 
   setTimeout(() => {
     loading.dismiss();
-  }, 10000);
+  }, 50000);
   }
 
   ngOnInit(){
