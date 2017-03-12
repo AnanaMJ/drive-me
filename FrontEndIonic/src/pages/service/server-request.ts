@@ -11,7 +11,8 @@ export class ServerRequest {
     }
 
     searchTaxi(startLatitude, startLongitude, endLatitude, endLongitude) {
-        var url = 'http://c34d0c13.ngrok.io/';
+        var url = 'http://c34d0c13.ngrok.io/estimate/startLat=';
+        url += encodeURI(startLatitude) + "&startLon=" + encodeURI(startLongitude) + "&endLat=" + encodeURI(endLatitude) + "&endLon=" + encodeURI(endLongitude);
         var response = this.http.get(url).map(res => res.json());
         return response;
     }

@@ -12,6 +12,9 @@ import { TaxiInfoPage } from '../taxi-info/taxi-info';
   providers: [ServerRequest],
 })
 export class HomePage {
+  @ViewChild('journey_from')
+  journey_from:ElementRef;
+
   fromValue:string;
   toValue:string;
   startLong:number;
@@ -131,4 +134,7 @@ export class HomePage {
             );
         }
 
+  clear() {
+    console.log(this.journey_from);
+  }
 }
