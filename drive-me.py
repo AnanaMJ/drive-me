@@ -1,12 +1,8 @@
-from flask import Flask, render_template
-from flask_cors import CORS, cross_origin
-# from uber_rides.session import Session
-# from uber_rides.client import UberRidesClient
+from flask import Flask, jsonify, make_response
+from flask_cors import CORS
 import json
-from flask import jsonify
 import requests
 import operator
-from flask import make_response
 
 app = Flask(__name__)
 CORS(app)
@@ -22,30 +18,10 @@ def estimate(start_lat, start_lon, end_lat, end_lon):
     sorted_result = sorted(result.items(), key=operator.itemgetter(1))
     return jsonify(sorted_result)
 
+
 @app.errorhandler(404)
 def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
-
-#@app.route('/')
-#def index():
-#    start_latitude = '51.5254506'
-#    start_longitude = '-0.1292581'
-#    end_latitude = '51.5114864'
-#    end_longitude = '-0.1181857'
-#    taxicode = get_taxicode_estimate(start_latitude, start_longitude, end_latitude, end_longitude)
-#    uber = parse_uber(start_latitude, start_longitude, end_latitude, end_longitude)
-#    result = taxicode.copy()
-#    result.update(uber)
-#    sorted_result = sorted(result.items(), key=operator.itemgetter(1))
-#    return jsonify(sorted_result)
-
-
-def get_uber_estimate(start_latitude=None, start_longitude=None, end_latitude=None, end_longitude=None):
-    url = 'https://api.uber.com/v1.2/estimates/price?start_latitude={}&start_longitude={}&end_latitude={}&end_longitude={}'.format(
-        start_latitude, start_longitude, end_latitude, end_longitude)
-    headers = {'Authorization': 'Token EZx9qEWb2Uvt2_fsukQoNzgl5jvFdcXIJCAcUMEs', 'Content-Type': 'application/json'}
-    r = requests.get(url, headers=headers)
-    return r.text
 
 
 def get_taxicode_estimate(start_latitude=None, start_longitude=None, end_latitude=None, end_longitude=None):
@@ -62,16 +38,13 @@ def get_taxicode_estimate(start_latitude=None, start_longitude=None, end_latitud
             if 'price' in item:
                 result[car_name] = {"high_price": item['price'],
                                     "low_price": item['price']}
-
     return result
 
 
-def get_hailo_estimate(start_latitude=None, start_longitude=None, end_latitude=None, end_longitude=None):
-    url = 'https://api.hailoapp.com/drivers/eta?latitude={}&longitude={}&destinationCoordinate={},{}'.format(
+def get_uber_estimate(start_latitude=None, start_longitude=None, end_latitude=None, end_longitude=None):
+    url = 'https://api.uber.com/v1.2/estimates/price?start_latitude={}&start_longitude={}&end_latitude={}&end_longitude={}'.format(
         start_latitude, start_longitude, end_latitude, end_longitude)
-    headers = {'Host': 'api.hailoapp.com',
-               'Accept': '*/*',
-               'Authorization': 'token Z7r9oJePCMy2WkCGoI3PtNOWCGe9L2LroLF6wxUI6EfXg+knJdB4ZMp2BLpTjDroFr6Tp52FVBUzuMlgRnC/A/2hlL017T3lNnvcPTNvMlVV4Uxs0IhEyC2h0OKg+9QDN58DXgbO3y1itg4KWv0pwvbFX6ZQfvasHsPTeLpEAERkB4xS2fZZosYo137jWSangjdPndI+GzMaxtc4AFvueA=='}
+    headers = {'Authorization': 'Token EZx9qEWb2Uvt2_fsukQoNzgl5jvFdcXIJCAcUMEs', 'Content-Type': 'application/json'}
     r = requests.get(url, headers=headers)
     return r.text
 
@@ -91,32 +64,14 @@ def parse_uber(start_latitude, start_longitude, end_latitude, end_longitude):
     return uber
 
 
-def create_session():
-    session = Session(server_token="EZx9qEWb2Uvt2_fsukQoNzgl5jvFdcXIJCAcUMEs")
-    client = UberRidesClient(session)
-    return client
-
-
-def get_products():
-    client = create_session()
-    response = client.get_products(37.77, -122.41)
-    products = response.json.get('products')
-
-
-def get_estimates():
-    client = create_session()
-    response = client.get_products(37.77, -122.41)
-    products = response.json.get('products')
-
-    response = client.get_price_estimates(
-        start_latitude=37.770,
-        start_longitude=-122.411,
-        end_latitude=37.791,
-        end_longitude=-122.405,
-        seat_count=2
-    )
-
-    estimate = response.json.get('prices')
+def get_hailo_estimate(start_latitude=None, start_longitude=None, end_latitude=None, end_longitude=None):
+    url = 'https://api.hailoapp.com/drivers/eta?latitude={}&longitude={}&destinationCoordinate={},{}'.format(
+        start_latitude, start_longitude, end_latitude, end_longitude)
+    headers = {'Host': 'api.hailoapp.com',
+               'Accept': '*/*',
+               'Authorization': 'token Z7r9oJePCMy2WkCGoI3PtNOWCGe9L2LroLF6wxUI6EfXg+knJdB4ZMp2BLpTjDroFr6Tp52FVBUzuMlgRnC/A/2hlL017T3lNnvcPTNvMlVV4Uxs0IhEyC2h0OKg+9QDN58DXgbO3y1itg4KWv0pwvbFX6ZQfvasHsPTeLpEAERkB4xS2fZZosYo137jWSangjdPndI+GzMaxtc4AFvueA=='}
+    r = requests.get(url, headers=headers)
+    return r.text
 
 
 if __name__ == '__main__':
