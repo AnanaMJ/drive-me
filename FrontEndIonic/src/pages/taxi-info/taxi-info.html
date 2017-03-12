@@ -1,16 +1,17 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Available Companies; From: {{companies.fromValue}} To: {{companies.toValue}}
-    </ion-title>
-  </ion-navbar>
-</ion-header>
+<ion-content class = "card-background-page" scroll = "false">
+  <ion-card item = left>
 
-<ion-content class="home" padding>
-  <ion-list>
-    <ion-item *ngFor="let company of companies">
-      <h2>{{company[0]}}</h2>
-      <p class="item-description">Price range: £{{company[1].low_price}} - £{{company[1].high_price}}</p>
-    </ion-item>
-  </ion-list>
+    <img src = "img/img.png"/>
+    <div class="card-title">      Available Companies; From: {{companies.fromValue}} To: {{companies.toValue}}
+    </div>
+    <div class="card-subtitle">
+      <ion-list>
+
+        <ion-item *ngFor="let company of companies">
+          <h2>{{company[0]}}</h2>
+          <p class="item-description">Price range: £{{company[1].low_price}} - £{{company[1].high_price}}</p>
+        </ion-item>
+      </ion-list>
+    </div>
+  </ion-card>
 </ion-content>
