@@ -21,7 +21,7 @@ export class HomePage {
   companies:{};
 
   constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, private serverRequest: ServerRequest) {
-    this.fromValue = "";
+    this.fromValue = "Current Location";
     this.toValue = "";
     Geolocation.getCurrentPosition().then(pos => {
       this.startLat=pos.coords.latitude;
@@ -48,7 +48,6 @@ export class HomePage {
   ngOnInit(){
 
     // get the two fields
-    console.log(this);
     let input_from = (<HTMLInputElement>document.getElementById("journey_from"));
     let input_to = (<HTMLInputElement>document.getElementById("journey_to"));
 
@@ -69,9 +68,11 @@ export class HomePage {
     google.maps.event.addListener(autocomplete1, 'place_changed', function() {
 
     let place = autocomplete1.getPlace();
+    self.fromValue = place.name;
     let geometry = place.geometry;
     if ((geometry) !== undefined) {
     console.log(place.name);
+
 
     console.log(geometry.location.lng());
     self.startLong = geometry.location.lng();
@@ -84,11 +85,13 @@ export class HomePage {
 // add the second listener
     google.maps.event.addListener(autocomplete2, 'place_changed', function() {
     let place = autocomplete2.getPlace();
+    self.toValue = place.name;
     let geometry = place.geometry;
 
     if ((geometry) !== undefined) {
 
     console.log(place.name);
+
 
     console.log(geometry.location.lng());
     self.endLong = geometry.location.lng();
@@ -114,8 +117,10 @@ export class HomePage {
         console.log(data[0][0]);
         console.log(data[0][1].high_price);
         console.log(data.length);
+        data.fromValue = this.fromValue;
+        data.toValue = this.toValue;
         this.navCtrl.push(TaxiInfoPage, {
-          data
+          data,
         });
 
                 },

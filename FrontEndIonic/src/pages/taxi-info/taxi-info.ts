@@ -10,11 +10,15 @@ import { HomePage } from '../taxi-request/taxi-request';
 export class TaxiInfoPage {
 
     companies: Array<any>;
+    fromValue: string;
+    toValue: string;
 
     constructor(public navCtrl: NavController, private navParams: NavParams) {
       console.log(navParams);
       console.log(navParams.get('data'));
       this.companies = navParams.get('data');
+      console.log(this.fromValue);
+      console.log(this.toValue);
       console.log(this.companies);
     }
 
