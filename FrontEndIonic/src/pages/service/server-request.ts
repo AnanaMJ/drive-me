@@ -11,7 +11,7 @@ export class ServerRequest {
     }
 
     searchTaxi(startLatitude, startLongitude, endLatitude, endLongitude) {
-        var url = 'http://google.com';
+        var url = 'http://c34d0c13.ngrok.io/';
         var response = this.http.get(url).map(res => res.json());
         return response;
     }

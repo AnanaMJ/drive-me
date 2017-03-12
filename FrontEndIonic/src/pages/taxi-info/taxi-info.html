@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Available Companies
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="home" padding>
+  <ion-list>
+    <ion-item *ngFor="let company of companies">
+      <h2>{{company[0]}}</h2>
+      <p class="item-description">Price range: £{{company[1].low_price}} - £{{company[1].high_price}}</p>
+    </ion-item>
+  </ion-list>
+</ion-content>

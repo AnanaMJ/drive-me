@@ -1,8 +1,10 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, LoadingController } from 'ionic-angular';
 import { ServerRequest } from '../service/server-request';
 import {googlemaps} from 'googlemaps';
 import { Geolocation } from 'ionic-native';
+import { TaxiInfoPage } from '../taxi-info/taxi-info';
+
 
 @Component({
   selector: 'page-taxi-request',
@@ -18,7 +20,7 @@ export class HomePage {
   endLat:number;
   companies:{};
 
-  constructor(public navCtrl: NavController, private serverRequest: ServerRequest) {
+  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, private serverRequest: ServerRequest) {
     this.fromValue = "";
     this.toValue = "";
     Geolocation.getCurrentPosition().then(pos => {
@@ -27,6 +29,19 @@ export class HomePage {
     });
     this.endLong=0;
     this.endLat=0;
+  }
+
+
+  presentLoadingDefault() {
+  let loading = this.loadingCtrl.create({
+    content: 'Please wait...'
+  });
+
+  loading.present();
+
+  setTimeout(() => {
+    loading.dismiss();
+  }, 10000);
   }
 
   ngOnInit(){
@@ -85,20 +100,29 @@ export class HomePage {
   }
 
   makeReq() {
+
     console.log(this.startLat);
     console.log(this.startLong);
     console.log(this.endLat);
     console.log(this.endLong);
+    this.presentLoadingDefault();
     this.serverRequest.searchTaxi(this.startLat,this.startLong,this.endLat,this.endLong).subscribe(
       data => {
         this.companies = data;
         console.log(data);
-      },
-      err => {
-        console.log(err);
-      },
-      () => console.log('Complete')
-    );
-  }
+        console.log(data[0][0]);
+        console.log(data[0][1].high_price);
+        console.log(data.length);
+        this.navCtrl.push(TaxiInfoPage, {
+          data
+        });
+
+                },
+                err => {
+                    console.log(err);
+                },
+                () => console.log('Movie Search Complete')
+            );
+        }
 
 }
