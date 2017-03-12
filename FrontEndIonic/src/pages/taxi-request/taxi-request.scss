@@ -19,7 +19,7 @@ page-taxi-request {
 
   .card-title {
     position: absolute;
-    top: 36%;
+    top: 20%;
     font-size: 5.0em;
     width: 100%;
     font-weight: bold;
@@ -29,15 +29,30 @@ page-taxi-request {
   .card-subtitle {
     font-size: 1.0em;
     position: absolute;
-    top: 52%;
+    top: 46%;
     width: 100%;
-    color: #fff;
+    color: #512C73;
   }
 
 }
 
+.label {
+  font-size: 5.0em;
+  color: #f00;
+}
+
+.button{
+  align: left;
+  width: 100%;
+}
+
 .ion-list{
   align: center;
+  width: 100%;
   opacity: 0.5;
 
+}
+
+input[type="text"] {
+  width: 500px;
 }

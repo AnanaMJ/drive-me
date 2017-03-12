@@ -1,36 +1,23 @@
-<ion-header>
-  <ion-navbar>
-
-    <ion-title>
-      MAP
-    </ion-title>
-
-    <ion-buttons end>
-      <button ion-button (click)="addMarker()"><ion-icon name="add"></ion-icon>Add Marker</button>
-    </ion-buttons>
-
-  </ion-navbar>
-</ion-header>
-
 <ion-content class = "card-background-page" scroll = "false">
+  <ion-card item = left>
 
-  <ion-card>
     <img src = "img/img.png"/>
     <div class="card-title">Drive Me</div>
     <div class="card-subtitle">
-      <div class="ion-list">
 
+      <div class="ion-list">
         <p class="label">From</p>
         <input id="journey_from" name="journey_from" type="text" placeholder="Enter location"[(ngModel)]="fromValue">
+
         <p class="label">To</p>
         <input id="journey_to" name="journey_to" type="text" placeholder="Enter location"[(ngModel)]="toValue">
-
       </div>
 
+      <br>
       <div padding>
-        <button ion-button color="primary" block (click)="makeReq()">Get Fares</button>
+        <button ion-button color="primary" block round (click)="makeReq()">Get Fares</button>
       </div>
     </div>
-  </ion-card>
 
+  </ion-card>
 </ion-content>
